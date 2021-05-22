@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Document</title>
+        <style>
+            div{
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background-color: pink;
+            }
+        </style>
+    </head>
+    <body>
+        <button>点击开始</button>
+        <div></div>
+        <script>
+            var div = document.querySelector('div');
+            var btn = document.querySelector('button')
+            function animate(obj,target){
+                /*因为重复点击按钮会导致添加多个相同属性，使动画效果不符预期
+                  所以每次调用函数时，第一步要先清除增加的timer属性
+                */
+                clearInterval(obj.timer);
+                //利用给对象附加属性，减少开辟内存的资源消耗
+                obj.timer = setInterval(function(){
+                    if(obj.offsetLeft >= target){
+                        clearInterval(obj.timer);
+                    }
+                    obj.style.left = obj.offsetLeft + 10 + 'px';
+                },30);
+            }
+            btn.addEventListener('click',function(){
+                animate(div, 400);
+            });
+        </script>
+    </body>
+</html>
